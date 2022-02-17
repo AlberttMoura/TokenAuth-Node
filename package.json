@@ -4,7 +4,7 @@
 	"main": "./dist/server.js",
 	"license": "MIT",
 	"scripts": {
-		"start": "tsnd --respawn .",
+		"start": "tsnd --respawn --transpile-only ./src/server.ts",
 		"build": "tsc -p ."
 	},
 	"devDependencies": {
@@ -14,6 +14,7 @@
 		"typescript": "^4.5.5"
 	},
 	"dependencies": {
-		"express": "^4.17.2"
+		"express": "^4.17.2",
+		"http-status-codes": "^2.2.0"
 	}
 }
