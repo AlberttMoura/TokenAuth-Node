@@ -1,19 +1,27 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import StatusCode from 'http-status-codes'
+import userRepository from '../repositories/user.repository'
 
 const usersRoute = Router()
 
-usersRoute.get('/users', (req: Request, res: Response, next: NextFunction) => {
-	console.log('oiii')
-	const users = [{ id: 1, name: 'Fulano' }]
-	res.status(StatusCode.OK).send(users)
-})
+usersRoute.get(
+	'/users',
+	async (req: Request, res: Response, next: NextFunction) => {
+		const users = await userRepository.findAllUsers()
+		res.status(StatusCode.OK).send(users)
+	}
+)
 
 usersRoute.get(
 	'/users/:uuid',
-	(req: Request, res: Response<{ uuid: string }>, next: NextFunction) => {
+	async (
+		req: Request,
+		res: Response<{ uuid: string }>,
+		next: NextFunction
+	) => {
 		const uuid = req.params.uuid
-		res.status(200).send({ uuid })
+		const user = await userRepository.findUserById(uuid)
+		res.status(StatusCode.OK).send(user)
 	}
 )
 
