@@ -25,6 +25,22 @@ class UserRepository {
 		])
 		return rows[0] || {}
 	}
+
+	async updateUser(user: User): Promise<User> {
+		const query =
+			'UPDATE app_user SET username = $1, password = $2 WHERE uuid = $3'
+		const { rows } = await db.query(query, [
+			user.username,
+			user.password,
+			user.uuid,
+		])
+		return rows[0] || {}
+	}
+
+	async removeUser(uuid: string): Promise<void> {
+		const query = 'DELETE FROM app_user WHERE uuid = $1'
+		const { rows } = await db.query(query, [uuid])
+	}
 }
 
 export default new UserRepository()
