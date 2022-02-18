@@ -44,7 +44,21 @@ class UserRepository {
 
 	async removeUser(uuid: string): Promise<void> {
 		const query = 'DELETE FROM app_user WHERE uuid = $1'
-		const { rows } = await db.query(query, [uuid])
+		await db.query(query, [uuid])
+	}
+
+	async findByUsernameAndPassword(
+		username: string,
+		password: string
+	): Promise<User | null> {
+		try {
+			const query =
+				"SELECT uuid, username FROM app_user WHERE username = $1 AND password = crypt($2, 'bread')"
+			const { rows } = await db.query<User>(query, [username, password])
+			return rows[0] ? rows[0] : null
+		} catch (err) {
+			throw new DatabaseError('Erro na consulta por usuário e senha', err)
+		}
 	}
 }
 
