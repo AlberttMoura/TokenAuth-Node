@@ -12,10 +12,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Configurações das rotas
-app.use(bearerAuthMiddleware, usersRoute)
 app.use(statusRoute)
 app.use(authRoute)
 
+app.use(bearerAuthMiddleware)
+app.use(usersRoute)
 app.use(errorHandler)
 // Inicilização do servidor
 app.listen(3000, () => {

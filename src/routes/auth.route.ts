@@ -4,6 +4,7 @@ import userRepository from '../repositories/user.repository'
 import StatusCode from 'http-status-codes'
 import JWT from 'jsonwebtoken'
 import basicAuthMiddleware from '../middleware/basic.auth.middleware'
+import bearerAuthMiddleware from '../middleware/bearer.auth.middleware'
 
 const authRoute = Router()
 
@@ -27,6 +28,14 @@ authRoute.post(
 		} catch (err) {
 			next(err)
 		}
+	}
+)
+
+authRoute.post(
+	'/token/validate',
+	bearerAuthMiddleware,
+	(req: Request, res: Response, next: NextFunction) => {
+		res.sendStatus(StatusCode.OK)
 	}
 )
 
