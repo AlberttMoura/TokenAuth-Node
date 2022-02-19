@@ -1,4 +1,4 @@
-# Sistema de autenticação de usuários utilizando Node e PostgreSQL
+# Microserviços de autenticação de usuários utilizando Node, PostgreSQL e JWT
 
 ### Configurando
 
