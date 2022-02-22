@@ -4,9 +4,11 @@ import errorHandler from './middleware/error.handler.middleware'
 import authRoute from './routes/auth.route'
 import statusRoute from './routes/status.route'
 import usersRoute from './routes/users.route'
+import cors from 'cors'
 
 const app = express()
 
+app.use(cors())
 // Middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
